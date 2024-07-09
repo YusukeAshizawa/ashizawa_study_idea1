@@ -2,13 +2,6 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import math
-from flask import Flask, render_template, request
-
-app = Flask(__name__)
-
-@app.route("/")
-def theta_head_direction_send(value):
-  return render_template('index.html', theta_head_direction=value)
 
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
@@ -78,11 +71,7 @@ with mp_face_mesh.FaceMesh(
       theta_head_direction = math.pi * 2 - theta_head_direction
     # print("rad_head_direction = {}".format(rad_head_direction))
     print("theta_head_direction = {}".format(theta_head_direction))
-    theta_head_direction_send(theta_head_direction)
     cv2.imshow('MediaPipe Face Mesh', cv2.flip(image, 1))
     if cv2.waitKey(5) & 0xFF == 27:
       break
 cap.release()
-
-if __name__ == '__main__':
-    app.run(debug=True)

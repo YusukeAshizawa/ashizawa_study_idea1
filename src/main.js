@@ -1,7 +1,5 @@
 import { nowInSec, SkyWayAuthToken, SkyWayContext, SkyWayRoom, SkyWayStreamFactory, uuidV4 } from "@skyway-sdk/room";
 
-var theta_head_direction = {{theta_head_direction_send|tojson}};
-
 const token = new SkyWayAuthToken({
   jti: uuidV4(),
   iat: nowInSec(),
