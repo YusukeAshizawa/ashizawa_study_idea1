@@ -584,7 +584,8 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"gLLPy":[function(require,module,exports) {
-var _room = require("../node_modules/@skyway-sdk/room");
+// import { nowInSec, SkyWayAuthToken, SkyWayContext, SkyWayRoom, SkyWayStreamFactory, uuidV4 } from "../node_modules/@skyway-sdk/room";  // デバッグ用
+var _room = require("@skyway-sdk/room");
 const token = new (0, _room.SkyWayAuthToken)({
     jti: (0, _room.uuidV4)(),
     iat: (0, _room.nowInSec)(),
@@ -695,7 +696,7 @@ const token = new (0, _room.SkyWayAuthToken)({
     };
 })();
 
-},{"../node_modules/@skyway-sdk/room":"aJVWS"}],"aJVWS":[function(require,module,exports) {
+},{"@skyway-sdk/room":"aJVWS"}],"aJVWS":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "AppActions", ()=>AppActions) /*! (c) Stefan Thomas | https://github.com/bitcoinjs/bitcoinjs-lib
