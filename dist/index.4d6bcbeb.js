@@ -584,7 +584,6 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"gLLPy":[function(require,module,exports) {
-// import { nowInSec, SkyWayAuthToken, SkyWayContext, SkyWayRoom, SkyWayStreamFactory, uuidV4 } from "../node_modules/@skyway-sdk/room";  // デバッグ用
 var _room = require("@skyway-sdk/room");
 const token = new (0, _room.SkyWayAuthToken)({
     jti: (0, _room.uuidV4)(),
