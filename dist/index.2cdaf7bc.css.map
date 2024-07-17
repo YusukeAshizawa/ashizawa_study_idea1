@@ -1,0 +1,1 @@
+{"mappings":"AACA;;;;;AAMA","sources":["src/style.css"],"sourcesContent":["/* 自分側のウィンドウの大きさを調整 */\r\n#local-video {\r\n  width: 600px;\r\n  max-width: 1000px;\r\n}\r\n\r\n/* 相手側のウィンドウの大きさを調整 */\r\n#remote-video {\r\n  width: 100%;\r\n  max-width: 1000px;\r\n}"],"names":[],"version":3,"file":"index.2cdaf7bc.css.map","sourceRoot":"/__parcel_source_root/"}
