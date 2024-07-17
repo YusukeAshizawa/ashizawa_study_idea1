@@ -1,0 +1,11 @@
+/* 自分側のウィンドウの大きさを調整 */
+#local-video {
+  width: 0%;
+  max-width: 1000px;
+}
+
+/* 相手側のウィンドウの大きさを調整 */
+#remote-video {
+  width: 100%;
+  max-width: 1000px;
+}

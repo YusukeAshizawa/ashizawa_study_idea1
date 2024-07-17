@@ -88,11 +88,13 @@ const token = new SkyWayAuthToken({
             newMedia = document.createElement("video");
             newMedia.playsInline = true;
             newMedia.autoplay = true;
+            newMedia.id = "remote-video";
             break;
           case "audio":
             newMedia = document.createElement("audio");
             newMedia.controls = true;
             newMedia.autoplay = true;
+            newMedia.id = "remote-audio";
             break;
           default:
             return;
