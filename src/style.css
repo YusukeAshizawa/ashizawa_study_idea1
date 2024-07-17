@@ -1,11 +1,14 @@
 /* 自分側のウィンドウの大きさを調整 */
 #local-video {
-  width: 600px;
-  max-width: 1000px;
+  position: relative;
+  max-width: 1000px;  /*ウィンドウの横幅の最大値*/
+  max-height: 1000px;  /*ウィンドウの縦幅の最大値*/
 }
 
 /* 相手側のウィンドウの大きさを調整 */
 #remote-video {
-  width: 100%;
-  max-width: 1000px;
+  position: relative;
+  width: 300px;
+  max-width: 1000px;  /*ウィンドウの横幅の最大値*/
+  max-height: 1000px;  /*ウィンドウの縦幅の最大値*/
 }

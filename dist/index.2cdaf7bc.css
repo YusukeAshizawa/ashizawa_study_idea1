@@ -1,10 +1,13 @@
 #local-video {
-  width: 600px;
   max-width: 1000px;
+  max-height: 1000px;
+  position: relative;
 }
 
 #remote-video {
-  width: 100%;
+  width: 300px;
   max-width: 1000px;
+  max-height: 1000px;
+  position: relative;
 }
 /*# sourceMappingURL=index.2cdaf7bc.css.map */

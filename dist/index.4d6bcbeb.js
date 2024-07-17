@@ -586,6 +586,10 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"gLLPy":[function(require,module,exports) {
 var _room = require("../node_modules/@skyway-sdk/room"); // デバッグ用
 // import { nowInSec, SkyWayAuthToken, SkyWayContext, SkyWayRoom, SkyWayStreamFactory, uuidV4 } from "@skyway-sdk/room";
+const Screen_width = 1332; // 端末のスクリーンの横幅（スクリーンの中心を用いるために利用）
+const Screen_height = 571; // 端末のスクリーンの縦幅（スクリーンの中心を用いるために利用）
+let fc_d_from_fc_vector_length = 0; // MediaPipeを用いて取得したベクトルの大きさ
+let radian = 0; // MediaPipeを用いて取得した頭部方向（ラジアン）
 const token = new (0, _room.SkyWayAuthToken)({
     jti: (0, _room.uuidV4)(),
     iat: (0, _room.nowInSec)(),
@@ -649,6 +653,48 @@ const token = new (0, _room.SkyWayAuthToken)({
     const roomNameInput = document.getElementById("room-name");
     const myId = document.getElementById("my-id");
     const joinButton = document.getElementById("join");
+    // Flaskのエンドポイントからデータを取得する
+    // fetch("/data")
+    // .then(response => response.json())
+    // .then(data => {
+    //   // 取得したデータを変数に代入
+    //   fc_d_from_fc_vector_length = data.fc_d_from_fc_vector_length;
+    //   radian = data.radian;
+    //   console.log("fc_d_from_fc_vector_length = ", fc_d_from_fc_vector_length); // デバッグ用
+    //   console.log("radian = ", radian); // デバッグ用
+    // })
+    // .catch(error => console.error("Error:", error));
+    const remoteVideo = document.getElementById("remote-video");
+    if (remoteVideo != null) {
+        // 自分のウィンドウの削除？
+        localVideo.width = 0; // ウィンドウの横幅変更
+        localVideo.height = 0; // ウィンドウの縦幅変更
+        // 相手が映るウィンドウの位置・大きさの変更
+        remoteVideo.width = 500; // ウィンドウの横幅変更
+        remoteVideo.height = 500; // ウィンドウの縦幅変更
+        $(function() {
+            $("#remote-video").offset({
+                left: Screen_width / 2,
+                top: Screen_height / 2
+            });
+        });
+    } else {
+        // 自分のウィンドウの位置・大きさの変更（デバッグ用）
+        localVideo.width = 500; // ウィンドウの横幅変更
+        localVideo.height = 500; // ウィンドウの縦幅変更
+        $(function() {
+            $("#local-video").offset({
+                left: Screen_width / 2,
+                top: Screen_height / 2
+            });
+        });
+    }
+    // デバッグ用
+    // $(function () {
+    //   var off = $('#local-video').offset();
+    //   console.log('top: ' + off.top);
+    //   console.log('left: ' + off.left);
+    // });
     const { audio, video } = await (0, _room.SkyWayStreamFactory).createMicrophoneAudioAndCameraStream();
     video.attach(localVideo);
     await localVideo.play();
@@ -676,6 +722,7 @@ const token = new (0, _room.SkyWayAuthToken)({
                         newMedia = document.createElement("video");
                         newMedia.playsInline = true;
                         newMedia.autoplay = true;
+                        newMedia.muted = true;
                         newMedia.id = "remote-video";
                         break;
                     case "audio":

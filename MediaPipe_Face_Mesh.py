@@ -3,6 +3,40 @@ import mediapipe as mp
 import numpy as np
 import math
 
+import asyncio
+import websockets
+import json
+
+# from flask import Flask, jsonify, render_template
+
+# app = Flask(__name__)
+
+# @app.route("/")
+# def index():
+#   return render_template("main.js")
+
+# @app.route('/data')
+# def data():
+#   data = {
+#     "fc_d_from_fc_vector_length": 10,  # ベクトルの大きさ
+#     "radian": 2*math.pi  # 頭部方向（ラジアン） 
+#   }
+#   return jsonify(data)
+
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+async def send_HeadDirectiondata(fc_d_from_fc_vector, rad_head_direction):
+  uri = "ws://localhost:8765"
+  async with websockets.connect(uri) as websocket:
+    data = {
+      "fc_d_from_fc_vector_length": np.sqrt(fc_d_from_fc_vector[0]^2 + fc_d_from_fc_vector[1]^2),
+      "radian": rad_head_direction
+    }
+    json_data = json.dumps(data)
+    await websocket.send(json_data)
+    print(f"Data sent: {json_data}")
+
 mp_drawing = mp.solutions.drawing_utils
 mp_drawing_styles = mp.solutions.drawing_styles
 mp_face_mesh = mp.solutions.face_mesh
@@ -66,11 +100,15 @@ with mp_face_mesh.FaceMesh(
                                     face_center_default_pos[1] - face_center_pos[1]])  # 顔の中心点を原点とした時の，正面を向いた際の顔の中心点の座標
     rad_head_direction = np.arccos(np.inner(base_vector, fc_d_from_fc_vector)/(np.linalg.norm(base_vector) * np.linalg.norm(fc_d_from_fc_vector)))  # 頭部方向（ラジアン）
     theta_head_direction = rad_head_direction * (180 / math.pi)  # 頭部方向（度）
-    if fc_d_from_fc_vector[1] < 0:  # arccosの値域が0～πであるため，上下の区別をするために，上を向いている時には，ラジアンおよび度の値を更新する必要がある
+    if fc_d_from_fc_vector[1] < 0:  # arccosの値域が0～πであるため，上下の区別をするために，上を向いている時には，ラジアンおよび度の値を更新する
       rad_head_direction = -rad_head_direction
       theta_head_direction = math.pi * 2 - theta_head_direction
     # print("rad_head_direction = {}".format(rad_head_direction))
     print("theta_head_direction = {}".format(theta_head_direction))
+
+    # WebSocketを用いたデータの送信
+    send_HeadDirectiondata(fc_d_from_fc_vector, rad_head_direction)
+
     cv2.imshow('MediaPipe Face Mesh', cv2.flip(image, 1))
     if cv2.waitKey(5) & 0xFF == 27:
       break
