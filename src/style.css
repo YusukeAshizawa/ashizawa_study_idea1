@@ -1,6 +1,6 @@
 /* 自分側のウィンドウの大きさを調整 */
 #local-video {
-  width: 0%;
+  width: 600px;
   max-width: 1000px;
 }
 
